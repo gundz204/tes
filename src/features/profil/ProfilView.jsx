@@ -3,11 +3,13 @@ import { createProfilPresenter } from "./profilPresenter";
 import React, { useEffect, useState, useMemo } from "react";
 import LoadingModal from "../../components/LoadingModal"
 import SuccessModal from "../../components/SuccessModal"
+import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 export default function ProfileView() {
   const hasPhoto = true;
+  const navigate = useNavigate()
   const [profile, setProfile] = useState({
     name: "",
     email: "",
@@ -70,7 +72,12 @@ export default function ProfileView() {
 
     try {
       await presenter.updateUser(profile);
-      toast.success('Profil Berhasil Diubah')
+      toast.success("Profil Berhasil Diubah", {
+        autoClose: 2000,
+        onClose: () => {
+          navigate(0);
+        },
+      });
     } catch (err) {
       toast.error('Profil Gagal Diubah')
       console.error(err);
@@ -83,7 +90,7 @@ export default function ProfileView() {
   return (
     <section className="flex justify-center px-4 py-8">
       {loading && <LoadingModal />}
-      {successModal && <SuccessModal message="data berhasil diperbaharui"/>}
+      {successModal && <SuccessModal message="data berhasil diperbaharui" />}
       <div className="w-full max-w-md bg-secondary p-6 rounded-xl shadow-md my-3">
         {/* Avatar */}
         <div className="flex flex-col items-center mb-6">
@@ -168,8 +175,12 @@ export default function ProfileView() {
                 <option value="" disabled hidden style={{ color: "gray" }}>
                   Pilih jenis kelamin
                 </option>
-                <option style={{ color: "black" }}>Perempuan</option>
-                <option style={{ color: "black" }}>Laki-laki</option>
+                <option value="female" style={{ color: "black" }}>
+                  Perempuan
+                </option>
+                <option value="male" style={{ color: "black" }}>
+                  Laki-laki
+                </option>
               </select>
               <FaChevronDown className="pointer-events-none absolute right-3 top-1/2 transform -translate-y-1/2 text-black" />
             </div>

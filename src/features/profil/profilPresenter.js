@@ -6,6 +6,9 @@ export function createProfilPresenter(viewCallbacks) {
       viewCallbacks.onLoadStart();
       const response = await profileModel.fetchUserProfile();
       const userData = response.data;
+
+      localStorage.setItem("user", JSON.stringify(userData));
+
       viewCallbacks.onLoadSuccess(userData);
     } catch (error) {
       viewCallbacks.onLoadError(error.message);
