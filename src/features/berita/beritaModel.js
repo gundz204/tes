@@ -2,7 +2,7 @@ import axios from "axios";
 
 export const getAllBerita = async () => {
   try {
-    const response = await axios.get("http://35.219.5.8:3000/news");
+    const response = await axios.get("https://sehati-api.arykurnia.my.id/news");
     return { success: true, data: response.data };
   } catch (error) {
     return {

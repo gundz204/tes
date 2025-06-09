@@ -3,6 +3,8 @@ import { createProfilPresenter } from "./profilPresenter";
 import React, { useEffect, useState, useMemo } from "react";
 import LoadingModal from "../../components/LoadingModal"
 import SuccessModal from "../../components/SuccessModal"
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export default function ProfileView() {
   const hasPhoto = true;
@@ -68,9 +70,9 @@ export default function ProfileView() {
 
     try {
       await presenter.updateUser(profile);
-      setSuccessModal(true)
+      toast.success('Profil Berhasil Diubah')
     } catch (err) {
-      setError("Terjadi kesalahan saat memperbarui profil.");
+      toast.error('Profil Gagal Diubah')
       console.error(err);
     } finally {
       setLoading(false);

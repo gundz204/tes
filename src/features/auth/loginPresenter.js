@@ -1,6 +1,6 @@
 import { loginUser } from "./loginModel";
 
-const API_BASE = "http://35.219.5.8:3000/users";
+const API_BASE = "https://sehati-api.arykurnia.my.id/users";
 
 export const handleLogin = async ({ email, password }, onSuccess, onError) => {
   try {

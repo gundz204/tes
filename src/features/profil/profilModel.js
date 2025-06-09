@@ -1,4 +1,4 @@
-const API_BASE = "http://35.219.5.8:3000/users";
+const API_BASE = "https://sehati-api.arykurnia.my.id/users";
 
 function getAuthToken() {
   return localStorage.getItem("token"); // misal key-nya authToken

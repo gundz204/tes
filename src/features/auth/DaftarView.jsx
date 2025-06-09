@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { handleRegister } from "./daftarPresenter";
 import LoadingModal from "../../components/LoadingModal";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const DaftarView = ({ onClose, handleMasuk }) => {
   const navigate = useNavigate();
@@ -38,11 +40,11 @@ const DaftarView = ({ onClose, handleMasuk }) => {
     const { success, error } = await handleRegister(formData);
     if (success) {
       setLoading(false);
-      alert("Registrasi berhasil! Silakan masuk.");
+      toast.error("Registrasi Berhasil, Silahkan Masuk");
       handleMasuk()
     } else {
       setLoading(false);
-      alert(`Gagal registrasi: ${error}`);
+      toast.error("Registrasi Gagal");
     }
   };
 

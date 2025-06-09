@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const BASE_URL = 'http://35.219.5.8:3000';
+const BASE_URL = 'https://sehati-api.arykurnia.my.id';
 
 export const loginUser = async ({ email, password }) => {
   try {

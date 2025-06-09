@@ -14,11 +14,13 @@ import EvaluasiDiriView from "../features/evaluasi-diri/EvaluasiDiriView";
 import IntroEvaluasiView from "../features/evaluasi-diri/IntroEvaluasiView";
 import BeritaViews from "../features/berita/BeritaViews";
 import DetailBerita from "../features/berita/DetailBeritaView";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const ProtectedRoute = () => {
   const token = localStorage.getItem("token");
   if (!token) {
-    alert('silahkan login dulu')
+    toast.error("Silakan login terlebih dahulu");
     return <Navigate to="/" replace />;
   }
 

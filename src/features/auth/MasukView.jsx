@@ -3,6 +3,8 @@ import { useNavigate } from "react-router-dom";
 import { handleLogin } from "./loginPresenter";
 import SEHATI_LOGO from "/images/SEHATI.png";
 import LoadingModal from "../../components/LoadingModal"
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const MasukView = ({ onClose, handleDaftar }) => {
   const navigate = useNavigate();
@@ -32,11 +34,15 @@ const MasukView = ({ onClose, handleDaftar }) => {
         setPassword("");
         setLoading(false);
         onClose();
-        navigate("/", { state: { loginSuccess: true } });
+        toast.success("Login Berhasil", {
+          autoClose: 2000,
+          onClose: () => {
+            navigate(0);
+          },
+        });
       },
       (errorMessage) => {
-        console.error("Login gagal", errorMessage);
-        setError(errorMessage);
+        toast.error("Login Gagal", errorMessage);
         setLoading(false);
       }
     );
