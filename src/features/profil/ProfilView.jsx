@@ -78,9 +78,17 @@ export default function ProfileView() {
           navigate(0);
         },
       });
-    } catch (err) {
-      toast.error("Profil Gagal Diubah");
-      console.error(err);
+    } catch (error) {
+      const msg = typeof error === "string"
+        ? error
+        : error?.message || "Terjadi kesalahan tidak diketahui";
+
+      toast.error(msg, {
+        autoClose: 2000,
+        onClose: () => {
+          navigate(0);
+        },
+      });
     } finally {
       setLoading(false);
     }
@@ -190,6 +198,7 @@ export default function ProfileView() {
           <div className="flex gap-4 mt-10 justify-end">
             <button
               type="button"
+              onClick={() => navigate('/')}
               className="bg-white text-accent border border-accent px-4 py-2 rounded-md hover:bg-accent hover:text-white transition-colors"
             >
               Batalkan

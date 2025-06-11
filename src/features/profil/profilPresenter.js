@@ -21,7 +21,7 @@ export function createProfilPresenter(viewCallbacks) {
       const response = await profileModel.updateUserProfile(data);
       console.log("updateUser: Respons diterima", response);
     } catch (error) {
-      console.error("updateUser: Terjadi kesalahan", error);
+      console.error("Terjadi kesalahan", error.message);
       throw error;
     }
   };

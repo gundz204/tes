@@ -44,7 +44,6 @@ function Navbar() {
   const userName = userData?.name || "User123";
   const userEmail = userData?.email || "user123@gmail.com";
   const userGender = userData?.gender;
-  console.log(userGender)
 
   const toggleDropdown = () => setDropdownOpen((prev) => !prev);
   const toggleMobileMenu = () => setMobileMenuOpen((prev) => !prev);
@@ -127,10 +126,11 @@ function Navbar() {
             <a
               href="/intro-evaluasi"
               onClick={handleEvaluasiClick}
-              className="text-black/60 font-medium hover:underline text-md cursor-pointer"
+              className="text-black/60 font-medium hover:underline text-md cursor-pointer whitespace-nowrap overflow-hidden text-ellipsis"
             >
               Evaluasi Diri
             </a>
+
             <Link
               to="/berita"
               className="text-black/60 font-medium hover:underline text-md"

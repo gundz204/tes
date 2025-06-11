@@ -60,7 +60,7 @@ export default function EvaluasiDiriView() {
       case 3:
         return stressAnswers.every((a) => a !== "");
       case 4:
-        return true;
+        return feelingsAnswer.trim() !== "";
       default:
         return true;
     }
@@ -191,7 +191,11 @@ export default function EvaluasiDiriView() {
           {step === 4 && (
             <button
               onClick={handleSubmit}
-              className="flex items-center gap-2 bg-accent hover:bg-green-800 text-white md:px-6 px-1 py-2 rounded-full font-semibold transition"
+              disabled={!isStepComplete()}
+              className={`flex items-center gap-2 px-6 py-2 rounded-full font-semibold transition ${isStepComplete()
+                  ? "bg-accent hover:bg-green-800 text-white"
+                  : "bg-green-300 cursor-not-allowed text-white"
+                }`}
             >
               Selesai
               <FaArrowRight />
