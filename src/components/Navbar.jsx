@@ -11,6 +11,7 @@ import {
 } from "react-icons/fi";
 import MasukView from "../features/auth/MasukView";
 import DaftarView from "../features/auth/DaftarView";
+import Swal from 'sweetalert2';
 
 function Navbar() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -50,12 +51,30 @@ function Navbar() {
   const toggleMobileMenu = () => setMobileMenuOpen((prev) => !prev);
 
   const handleLogout = () => {
-    setDropdownOpen(false);
-    setIsLoggedIn(false);
-    localStorage.removeItem("token");
-    localStorage.removeItem("user");
+    Swal.fire({
+      title: 'Yakin ingin keluar?',
+      text: 'Kamu akan keluar dari akun ini.',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Ya, keluar',
+      cancelButtonText: 'Batal',
+      confirmButtonColor: '#d33',
+      cancelButtonColor: '#3085d6',
+    }).then((res) => {
+      if (res.isConfirmed) {
+        setDropdownOpen(false);
+        setIsLoggedIn(false);
+        localStorage.removeItem('token');
+        localStorage.removeItem('user');
+        Swal.fire({
+          title: 'Berhasil keluar',
+          icon: 'success',
+          timer: 1500,
+          showConfirmButton: false,
+        });
+      }
+    });
   };
-
 
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -171,10 +190,10 @@ function Navbar() {
                   <img
                     src={
                       userGender === "male"
-                        ? "https://avatar.iran.liara.run/public/47"
+                        ? "/images/47.png"
                         : userGender === "female"
-                          ? "https://avatar.iran.liara.run/public/88"
-                          : "https://avatar.iran.liara.run/public/47"
+                          ? "/images/88.png"
+                          : "/images/47.png"
                     }
                     alt={`${userName}'s avatar`}
                     className="w-10 h-10 object-cover bg-white"
@@ -197,10 +216,10 @@ function Navbar() {
                       <img
                         src={
                           userGender === "male"
-                            ? "https://avatar.iran.liara.run/public/47"
+                            ? "/images/47.png"
                             : userGender === "female"
-                              ? "https://avatar.iran.liara.run/public/88"
-                              : "https://avatar.iran.liara.run/public/47"
+                              ? "/images/88.png"
+                              : "/images/47.png"
                         }
                         alt={`${userName}'s avatar`}
                         className="w-6 h-6 rounded-full bg-white object-cover"
@@ -221,7 +240,7 @@ function Navbar() {
                       type="button"
                     >
                       <HiLogout className="inline ml-2 mr-2 text-lg text-accent align-middle font-medium" />
-                      Logout
+                      Keluar
                     </button>
                   </div>
                 )}
@@ -260,10 +279,10 @@ function Navbar() {
                         <img
                           src={
                             userGender === "male"
-                              ? "https://avatar.iran.liara.run/public/47"
+                              ? "/images/47.png"
                               : userGender === "female"
-                                ? "https://avatar.iran.liara.run/public/88"
-                                : "https://avatar.iran.liara.run/public/47"
+                                ? "/images/88.png"
+                                : "/images/47.png"
                           }
                           alt={`${userName}'s avatar`}
                           className="w-14 h-14 rounded-full object-cover bg-white"
@@ -399,7 +418,7 @@ function Navbar() {
                     >
                       <div className="flex items-center gap-2">
                         <HiUserCircle className="w-5 h-5 text-accent" />
-                        Profile
+                        Profil
                       </div>
                     </NavLink>
 
@@ -412,7 +431,7 @@ function Navbar() {
                       type="button"
                     >
                       <HiLogout className="w-5 h-5 text-accent" />
-                      Logout
+                      Keluar
                     </button>
                   </>
                 )}

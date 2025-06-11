@@ -92,10 +92,10 @@ export default function RiwayatViews() {
             <img
               src={
                 user.gender === "male"
-                  ? "https://avatar.iran.liara.run/public/47"
+                  ? "/images/47.png"
                   : user.gender === "female"
-                    ? "https://avatar.iran.liara.run/public/88"
-                    : "https://avatar.iran.liara.run/public/47"
+                    ? "/images/88.png"
+                    : "/images/47.png"
               }
               alt="avatar"
               className="w-full h-full object-contain"
@@ -147,24 +147,29 @@ export default function RiwayatViews() {
 
           {/* Activity List */}
           <div className="flex flex-col gap-6">
-            {loading
-              ? Array(3).fill(0).map((_, index) => (
-                <div
-                  key={index}
-                  className="bg-secondary border border-accent p-4 rounded-lg flex justify-between items-start animate-pulse"
-                >
-                  <div className="flex-1">
-                    <div className="h-4 bg-white/70 rounded w-3/4 mb-2"></div>
-                    <div className="h-3 bg-white/70 rounded w-1/2 mb-2"></div>
-                    <div className="h-4 bg-white/70 rounded w-full"></div>
+            {loading ? (
+              Array(3)
+                .fill(0)
+                .map((_, index) => (
+                  <div
+                    key={index}
+                    className="bg-secondary border border-accent p-4 rounded-lg flex justify-between items-start animate-pulse"
+                  >
+                    <div className="flex-1">
+                      <div className="h-4 bg-white/70 rounded w-3/4 mb-2"></div>
+                      <div className="h-3 bg-white/70 rounded w-1/2 mb-2"></div>
+                      <div className="h-4 bg-white/70 rounded w-full"></div>
+                    </div>
+                    <div className="flex flex-col items-end gap-1">
+                      <div className="h-5 w-16 bg-white/70 rounded-full"></div>
+                      <div className="h-7 w-7 bg-white/70 rounded-md mt-8"></div>
+                    </div>
                   </div>
-                  <div className="flex flex-col items-end gap-1">
-                    <div className="h-5 w-16 bg-white/70 rounded-full"></div>
-                    <div className="h-7 w-7 bg-white/70 rounded-md mt-8"></div>
-                  </div>
-                </div>
-              ))
-              : currentItems.map((item) => (
+                ))
+            ) : currentItems.length === 0 ? (
+              <p className="py-30 text-center text-gray-500 h-64">Tidak ada riwayat</p>
+            ) : (
+              currentItems.map((item) => (
                 <div
                   key={item.id}
                   className="bg-secondary border border-accent p-4 rounded-lg flex justify-between items-start"
@@ -191,7 +196,8 @@ export default function RiwayatViews() {
                     </button>
                   </div>
                 </div>
-              ))}
+              ))
+            )}
           </div>
 
           {/* Pagination */}

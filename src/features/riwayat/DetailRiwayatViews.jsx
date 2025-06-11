@@ -41,19 +41,19 @@ export default function DetailRiwayatViews() {
       label: "Depresi",
       kategori: dataHasil?.depresi.categorie || "-",
       skor: dataHasil?.depresi.score || 0,
-      maksimum: dataHasil?.depresi.maksimum || 21,
+      maksimum: dataHasil?.depresi.maksimum || 42,
     },
     {
       label: "Kecemasan",
       kategori: dataHasil?.kecemasan.categorie || "-",
       skor: dataHasil?.kecemasan.score || 0,
-      maksimum: dataHasil?.kecemasan.maksimum || 21,
+      maksimum: dataHasil?.kecemasan.maksimum || 42,
     },
     {
       label: "Stres",
       kategori: dataHasil?.stres.categorie || "-",
       skor: dataHasil?.stres.score || 0,
-      maksimum: dataHasil?.stres.maksimum || 21,
+      maksimum: dataHasil?.stres.maksimum || 42,
     },
   ];
 

@@ -70,7 +70,7 @@ const DaftarView = ({ onClose, handleMasuk }) => {
           {/* Kanan - Form Registrasi */}
           <div className="w-full md:w-1/2 bg-[#f0fefb] p-4 sm:p-6 flex flex-col justify-center items-center">
             <img
-              src="../../../public/images/SEHATI.png"
+              src="/images/SEHATI.png"
               alt="SEHATI"
               className="w-12 mb-2"
             />

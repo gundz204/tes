@@ -108,10 +108,10 @@ export default function ProfileView() {
                 <img
                   src={
                     profile.gender === "male"
-                      ? "https://avatar.iran.liara.run/public/47"
+                      ? "/images/47.png"
                       : profile.gender === "female"
-                        ? "https://avatar.iran.liara.run/public/88"
-                        : "https://avatar.iran.liara.run/public/47"
+                        ? "/images/88.png"
+                        : "/images/47.png"
                   }
                   alt="Profile"
                   className="absolute inset-0 w-24 h-24 object-cover"
