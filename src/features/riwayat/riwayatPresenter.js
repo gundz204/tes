@@ -5,6 +5,10 @@ export function getRiwayatData() {
   return riwayatModel.getAll();
 }
 
+export function getDetailRiwayat(id) {
+  return riwayatModel.getById(id);
+}
+
 // Tambahan opsional (modular):
 export function searchRiwayat(keyword) {
   return riwayatModel.search(keyword);

@@ -1,8 +1,6 @@
 import { useState } from "react";
 
-export default function FeelingsStep({ onPrev, onFinish }) {
-  const [feedback, setFeedback] = useState("");
-
+export default function FeelingsStep({ onPrev, onFinish, feedback, setFeedback }) {
   const handleFinish = () => {
     onFinish(feedback);
   };

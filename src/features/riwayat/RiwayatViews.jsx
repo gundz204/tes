@@ -12,12 +12,74 @@ const levelColor = {
 
 export default function RiwayatViews() {
   const [riwayat, setRiwayat] = useState([]);
-  const navigate = useNavigate(); // <-- Tambahkan ini agar bisa pakai navigate
+  const navigate = useNavigate();
+  const [searchTerm, setSearchTerm] = useState("");
+  const [sortBy, setSortBy] = useState("asc");
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 3;
+
+
+
+  // Filter berdasarkan search
+  const filteredItems = riwayat.filter(item =>
+    item.title.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
+  const sortedItems = [...filteredItems].sort((a, b) => {
+    const numA = parseInt(a.title.match(/\d+/)?.[0]) || 0;
+    const numB = parseInt(b.title.match(/\d+/)?.[0]) || 0;
+
+    return sortBy === "asc" ? numA - numB : numB - numA;
+  });
+
+
+  // Pagination
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const currentItems = sortedItems.slice(indexOfFirstItem, indexOfLastItem);
+  const totalPages = Math.ceil(sortedItems.length / itemsPerPage);
+
+  const handlePageChange = (pageNumber) => {
+    setCurrentPage(pageNumber);
+  };
+
+  const [user, setUser] = useState({
+    name: "",
+    email: "",
+    gender: ""
+  });
 
   useEffect(() => {
-    const data = getRiwayatData();
-    setRiwayat(data);
+    async function fetchData() {
+      try {
+        const data = await getRiwayatData();
+        console.log("Hasil data:", data);
+        setRiwayat(data);
+      } catch (error) {
+        console.error("Gagal mengambil data riwayat:", error);
+      }
+    }
+
+    fetchData();
   }, []);
+
+  useEffect(() => {
+    const userData = localStorage.getItem("user");
+    if (userData) {
+      try {
+        const parsedUser = JSON.parse(userData);
+        setUser({
+          name: parsedUser.name,
+          email: parsedUser.email,
+          gender: parsedUser.gender
+        });
+      } catch (error) {
+        console.error("Failed to parse user data:", error);
+      }
+    }
+  }, []);
+
+  console.log(riwayat)
 
   return (
     <Layout>
@@ -26,17 +88,23 @@ export default function RiwayatViews() {
         <aside className="w-full mt-0 md:mt-2 md:w-1/4 bg-secondary rounded-xl p-4 flex flex-col items-center text-center md:max-h-[300px] md:ml-8">
           <div className="w-24 h-24 md:w-32 md:h-32 mb-1 mt-1 md:mt-4">
             <img
-              src="/src/assets/avatar_profile1.png"
+              src={
+                user.gender === "male"
+                  ? "https://avatar.iran.liara.run/public/47"
+                  : user.gender === "female"
+                    ? "https://avatar.iran.liara.run/public/48"
+                    : "https://avatar.iran.liara.run/public/47"
+              }
               alt="avatar"
               className="w-full h-full object-contain"
             />
           </div>
 
-          <h2 className="text-lg font-semibold">User123</h2>
-          <p className="text-sm text-gray-600 mb-3">user123@gmail.com</p>
-          <button 
-          onClick={() => navigate("/profil")}
-          className="bg-white border border-accent px-4 py-2 rounded-md text-sm hover:bg-accent hover:text-white transition">
+          <h2 className="text-lg font-semibold">{user.name}</h2>
+          <p className="text-sm text-gray-600 mb-3">{user.email}</p>
+          <button
+            onClick={() => navigate("/profil")}
+            className="bg-white border border-accent px-4 py-2 rounded-md text-sm hover:bg-accent hover:text-white transition">
             Ubah Profil
           </button>
         </aside>
@@ -52,13 +120,24 @@ export default function RiwayatViews() {
                 <input
                   type="text"
                   placeholder="Cari.."
+                  value={searchTerm}
+                  onChange={(e) => {
+                    setSearchTerm(e.target.value);
+                    setCurrentPage(1);
+                  }}
                   className="w-full px-10 py-1 border border-accent rounded-md text-sm focus:outline-none focus:ring-1 focus:ring-accent"
                 />
 
                 <AiOutlineSearch className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500" />
               </div>
-              <button className="border border-accent text-black px-3 py-1 rounded-md text-sm flex items-center gap-2 hover:bg-accent hover:text-white transition">
-                <AiOutlineSortAscending />
+              <button
+                onClick={() => {
+                  setSortBy(prev => prev === "asc" ? "desc" : "asc");
+                  setCurrentPage(1);
+                }}
+                className="border border-accent text-black px-3 py-1 rounded-md text-sm flex items-center gap-2 hover:bg-accent hover:text-white transition"
+              >
+                {sortBy === "asc" ? <AiOutlineSortAscending /> : <AiOutlineSortAscending className="rotate-180" />}
                 Urutkan
               </button>
             </div>
@@ -66,7 +145,7 @@ export default function RiwayatViews() {
 
           {/* Activity List */}
           <div className="flex flex-col gap-6">
-            {riwayat.map((item) => (
+            {currentItems.map((item) => (
               <div
                 key={item.id}
                 className="bg-secondary border border-accent p-4 rounded-lg flex justify-between items-start"
@@ -83,14 +162,13 @@ export default function RiwayatViews() {
                 </div>
                 <div className="flex flex-col items-end gap-1">
                   <span
-                    className={`text-xs px-2 py-0.5 rounded-full font-medium ${
-                      levelColor[item.level]
-                    }`}
+                    className={`text-xs px-2 py-0.5 rounded-full font-medium ${levelColor[item.level]
+                      }`}
                   >
                     {item.level}
                   </span>
                   <button
-                    onClick={() => navigate("/detail-riwayat")}
+                    onClick={() => navigate(`/riwayat/${item.id}`)}
                     className="text-gray-500 hover:text-black text-lg w-7 h-7 rounded-md border border-black-300 p-1 mt-8 hover:bg-primary"
                   >
                     ⋯
@@ -102,19 +180,32 @@ export default function RiwayatViews() {
 
           {/* Pagination */}
           <div className="flex justify-center items-center mt-6 gap-2">
-            <button className="border border-accent text-black px-3 py-1 rounded-md text-sm hover:bg-accent hover:text-white transition">
+            <button
+              onClick={() => handlePageChange(currentPage - 1)}
+              disabled={currentPage === 1}
+              className="border border-accent text-black px-3 py-1 rounded-md text-sm hover:bg-accent hover:text-white transition disabled:opacity-50"
+            >
               &lt;
             </button>
-            <button className="border border-accent px-3 py-1 rounded-md text-sm bg-accent text-white">
-              1
-            </button>
-            <button className="border border-accent text-black px-3 py-1 rounded-md text-sm hover:bg-accent hover:text-white transition">
-              2
-            </button>
-            <button className="border border-accent text-black px-3 py-1 rounded-md text-sm hover:bg-accent hover:text-white transition">
-              3
-            </button>
-            <button className="border border-accent text-black px-3 py-1 rounded-md text-sm hover:bg-accent hover:text-white transition">
+
+            {[...Array(totalPages)].map((_, index) => (
+              <button
+                key={index}
+                onClick={() => handlePageChange(index + 1)}
+                className={`border border-accent px-3 py-1 rounded-md text-sm ${currentPage === index + 1
+                  ? "bg-accent text-white"
+                  : "text-black hover:bg-accent hover:text-white transition"
+                  }`}
+              >
+                {index + 1}
+              </button>
+            ))}
+
+            <button
+              onClick={() => handlePageChange(currentPage + 1)}
+              disabled={currentPage === totalPages}
+              className="border border-accent text-black px-3 py-1 rounded-md text-sm hover:bg-accent hover:text-white transition disabled:opacity-50"
+            >
               &gt;
             </button>
           </div>

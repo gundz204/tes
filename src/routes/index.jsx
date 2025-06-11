@@ -37,7 +37,6 @@ const AppRoutes = () => {
         <Route element={<ProtectedRoute />}>
           <Route path="/riwayat" element={<RiwayatView />} />
           <Route path="/riwayat/:id" element={<DetailRiwayatViews />} />
-          <Route path="/detail-riwayat" element={<DetailRiwayatViews />} />
           <Route path="/profil" element={<ProfilView />} />
           <Route path="/evaluasi-diri" element={<EvaluasiDiriView />} />
           <Route path="/intro-evaluasi" element={<IntroEvaluasiView />} />

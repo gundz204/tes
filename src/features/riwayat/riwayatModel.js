@@ -1,43 +1,79 @@
-// src/features/riwayat/riwayatModel.js
+import axios from "axios";
 
-const dummyData = [
-  {
-    id: 1,
-    title: "Evaluasi 1",
-    date: "2025-06-01",
-    skor: { depresi: 5, kecemasan: 3, stress: 4 },
-    level: "Rendah",
-  },
-  {
-    id: 2,
-    title: "Evaluasi 2",
-    date: "2025-06-02",
-    skor: { depresi: 7, kecemasan: 6, stress: 5 },
-    level: "Sedang",
-  },
-  {
-    id: 3,
-    title: "Evaluasi 3",
-    date: "2025-06-03",
-    skor: { depresi: 9, kecemasan: 8, stress: 7 },
-    level: "Tinggi",
-  },
-];
+// Helper untuk ambil data dari localStorage
+const getAuthData = () => {
+  try {
+    const token = localStorage.getItem("token");
+    const user = JSON.parse(localStorage.getItem("user"));
+    if (!token || !user?.userId) throw new Error("Auth data not found");
+    return { token, userId: user.userId };
+  } catch (error) {
+    console.error("Failed to get auth data:", error.message);
+    return null;
+  }
+};
 
 export const riwayatModel = {
-  getAll() {
-    return dummyData;
+  async getAll() {
+    const auth = getAuthData();
+    if (!auth) return [];
+
+    try {
+      const response = await axios.get(
+        `https://sehati-api.arykurnia.my.id/history/${auth.userId}`,
+        {
+          headers: {
+            Authorization: `Bearer ${auth.token}`,
+          },
+        }
+      );
+
+      return response.data.data.map((item, index) => ({
+        id: item.id,
+        title: `Evaluasi ${index + 1}`,
+        date: item.createdAt.split("T")[0],
+        time: item.createdAt.split("T")[1].split(".")[0],
+        skor: {
+          depresi: item.hasil.depresi.score,
+          kecemasan: item.hasil.kecemasan.score,
+          stress: item.hasil.stres.score,
+        },
+        level: item.hasil.rataRata.categorie,
+      }));
+    } catch (error) {
+      console.error("Failed to fetch riwayat:", error.message);
+      return [];
+    }
   },
-  getById(id) {
-    return dummyData.find((item) => item.id === id);
+
+  async getById(id) {
+    const token = localStorage.getItem("token");
+    if (!token) throw new Error("Token tidak ditemukan di localStorage");
+
+    const response = await fetch(`https://sehati-api.arykurnia.my.id/assessments/${id}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    if (!response.ok) {
+      throw new Error(`Gagal mengambil data: ${response.statusText}`);
+    }
+
+    const data = await response.json();
+    return data;
   },
-  search(keyword) {
-    return dummyData.filter((item) =>
+
+  async search(keyword) {
+    const data = await this.getAll();
+    return data.filter((item) =>
       item.title.toLowerCase().includes(keyword.toLowerCase())
     );
   },
-  sortByDate(order = "desc") {
-    return [...dummyData].sort((a, b) => {
+
+  async sortByDate(order = "desc") {
+    const data = await this.getAll();
+    return data.sort((a, b) => {
       return order === "asc"
         ? new Date(a.date) - new Date(b.date)
         : new Date(b.date) - new Date(a.date);
