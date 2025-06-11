@@ -1,12 +1,13 @@
 import { useState, useRef, useEffect } from "react";
 import { Link, NavLink, useNavigate } from "react-router-dom";
-import { HiUserCircle, HiLogout, HiMenu } from "react-icons/hi";
+import { HiUserCircle, HiLogout, HiMenu, HiClock } from "react-icons/hi";
 import {
   FiHome,
   FiUserCheck,
   FiFileText,
   FiLogIn,
   FiUserPlus,
+  FiClock
 } from "react-icons/fi";
 import MasukView from "../features/auth/MasukView";
 import DaftarView from "../features/auth/DaftarView";
@@ -206,6 +207,14 @@ function Navbar() {
                       />
                       <span className="font-medium">{userName}</span>
                     </Link>
+                    <Link
+                      to="/riwayat"
+                      className="flex items-center gap-2 px-4 py-2 text-sm text-black bg-white hover:brightness-95 border-b border-t border-gray-300"
+                      onClick={() => setDropdownOpen(false)}
+                    >
+                      <HiClock className="inline ml-2 text-lg text-accent align-middle font-medium" />
+                      Riwayat
+                    </Link>
                     <button
                       onClick={handleLogout}
                       className="w-full text-left px-4 py-2 text-sm bg-white font-medium text-black hover:brightness-95 rounded-b-xl"
@@ -331,6 +340,22 @@ function Navbar() {
                   <div className="flex items-center gap-2">
                     <FiFileText className="w-5 h-5 text-accent" />
                     Berita
+                  </div>
+                </NavLink>
+
+                <NavLink
+                  to="/riwayat"
+                  onClick={toggleMobileMenu}
+                  className={({ isActive }) =>
+                    `w-full px-4 py-2 rounded-xl text-left font-medium transition text-accent ${isActive
+                      ? "bg-white text-accent"
+                      : "bg-secondary text-black hover:bg-white"
+                    }`
+                  }
+                >
+                  <div className="flex items-center gap-2">
+                    <FiClock className="w-5 h-5 text-accent" />
+                    Riwayat
                   </div>
                 </NavLink>
 

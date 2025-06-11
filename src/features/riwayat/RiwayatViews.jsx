@@ -17,8 +17,7 @@ export default function RiwayatViews() {
   const [sortBy, setSortBy] = useState("asc");
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 3;
-
-
+  const [loading, setLoading] = useState(false)
 
   // Filter berdasarkan search
   const filteredItems = riwayat.filter(item =>
@@ -52,11 +51,14 @@ export default function RiwayatViews() {
   useEffect(() => {
     async function fetchData() {
       try {
+        setLoading(true)
         const data = await getRiwayatData();
         console.log("Hasil data:", data);
         setRiwayat(data);
       } catch (error) {
         console.error("Gagal mengambil data riwayat:", error);
+      } finally {
+        setLoading(false)
       }
     }
 
@@ -145,37 +147,51 @@ export default function RiwayatViews() {
 
           {/* Activity List */}
           <div className="flex flex-col gap-6">
-            {currentItems.map((item) => (
-              <div
-                key={item.id}
-                className="bg-secondary border border-accent p-4 rounded-lg flex justify-between items-start"
-              >
-                <div>
-                  <h4 className="font-semibold text-base text-black">
-                    {item.title}
-                  </h4>
-                  <p className="text-xs text-gray-500">{item.date}</p>
-                  <p className="text-sm mt-1 text-gray-800">
-                    Skor: Depresi ({item.skor.depresi}), Kecemasan (
-                    {item.skor.kecemasan}), Stress ({item.skor.stress})
-                  </p>
+            {loading
+              ? Array(3).fill(0).map((_, index) => (
+                <div
+                  key={index}
+                  className="bg-secondary border border-accent p-4 rounded-lg flex justify-between items-start animate-pulse"
+                >
+                  <div className="flex-1">
+                    <div className="h-4 bg-white/70 rounded w-3/4 mb-2"></div>
+                    <div className="h-3 bg-white/70 rounded w-1/2 mb-2"></div>
+                    <div className="h-4 bg-white/70 rounded w-full"></div>
+                  </div>
+                  <div className="flex flex-col items-end gap-1">
+                    <div className="h-5 w-16 bg-white/70 rounded-full"></div>
+                    <div className="h-7 w-7 bg-white/70 rounded-md mt-8"></div>
+                  </div>
                 </div>
-                <div className="flex flex-col items-end gap-1">
-                  <span
-                    className={`text-xs px-2 py-0.5 rounded-full font-medium ${levelColor[item.level]
-                      }`}
-                  >
-                    {item.level}
-                  </span>
-                  <button
-                    onClick={() => navigate(`/riwayat/${item.id}`)}
-                    className="text-gray-500 hover:text-black text-lg w-7 h-7 rounded-md border border-black-300 p-1 mt-8 hover:bg-primary"
-                  >
-                    ⋯
-                  </button>
+              ))
+              : currentItems.map((item) => (
+                <div
+                  key={item.id}
+                  className="bg-secondary border border-accent p-4 rounded-lg flex justify-between items-start"
+                >
+                  <div>
+                    <h4 className="font-semibold text-base text-black">{item.title}</h4>
+                    <p className="text-xs text-gray-500">{item.date}</p>
+                    <p className="text-sm mt-1 text-gray-800">
+                      Skor: Depresi ({item.skor.depresi}), Kecemasan (
+                      {item.skor.kecemasan}), Stress ({item.skor.stress})
+                    </p>
+                  </div>
+                  <div className="flex flex-col items-end gap-1">
+                    <span
+                      className={`text-xs px-2 py-0.5 rounded-full font-medium ${levelColor[item.level]}`}
+                    >
+                      {item.level}
+                    </span>
+                    <button
+                      onClick={() => navigate(`/riwayat/${item.id}`)}
+                      className="text-gray-500 hover:text-black text-lg w-7 h-7 rounded-md border border-black-300 p-1 mt-8 hover:bg-primary"
+                    >
+                      ⋯
+                    </button>
+                  </div>
                 </div>
-              </div>
-            ))}
+              ))}
           </div>
 
           {/* Pagination */}
