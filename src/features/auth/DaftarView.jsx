@@ -21,7 +21,7 @@ const DaftarView = ({ onClose, handleMasuk }) => {
     email: "",
     password: "",
     birth: "",
-    gender: "laki-laki",
+    gender: "",
   });
 
   const handleChange = (e) => {
@@ -38,9 +38,10 @@ const DaftarView = ({ onClose, handleMasuk }) => {
     setLoading(true);
 
     const { success, error } = await handleRegister(formData);
+    console.log(formData)
     if (success) {
       setLoading(false);
-      toast.error("Registrasi Berhasil, Silahkan Masuk");
+      toast.success("Registrasi Berhasil, Silahkan Masuk");
       handleMasuk()
     } else {
       setLoading(false);
@@ -131,7 +132,7 @@ const DaftarView = ({ onClose, handleMasuk }) => {
                       type="radio"
                       name="gender"
                       value="male"
-                      checked={formData.gender === "Laki-laki"}
+                      checked={formData.gender === "male"}
                       onChange={handleChange}
                     />
                     <span>Laki-laki</span>

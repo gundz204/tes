@@ -4,7 +4,7 @@ export async function handleRegister(formData) {
   // Map form input ke format API
   const payload = {
     name: formData.name,
-    gender: formData.gender === "Laki-laki" ? "male" : "female",
+    gender: formData.gender,
     birth: formData.birth,
     email: formData.email,
     password: formData.password,

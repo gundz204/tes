@@ -110,6 +110,7 @@ export default function DetailRiwayatViews() {
             dangerouslySetInnerHTML={{
               __html: (rekomendasiHasil || "")
                 .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+                .replace(/\*(.*?)\*/g, '<em>$1</em>')
                 .replace(/\n(\d+)\.\s+(.*?)(?=\n\d+\.|\n?$)/gs, (_, num, content) => {
                   const [judul, ...isi] = content.split(':');
                   return `<div class="pl-5 relative mt-2 text-justify"><span class="absolute left-0">${num}.</span> <strong>${judul}:</strong>${isi.join(':')}</div>`;

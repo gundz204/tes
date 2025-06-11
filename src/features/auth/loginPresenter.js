@@ -7,8 +7,8 @@ export const handleLogin = async ({ email, password }, onSuccess, onError) => {
     const result = await loginUser({ email, password });
 
     if (result.data?.accessToken && result.data?.userId) {
-      const token = result.data.accessToken;
-      const userId = result.data.userId;
+      const token = result.data?.accessToken;
+      const userId = result.data?.userId;
 
       localStorage.setItem("token", token);
 

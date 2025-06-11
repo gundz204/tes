@@ -24,8 +24,8 @@ export default function StressStep({ answers, onAnswerChange }) {
 
   const getColor = (value) => {
     return value < 2
-      ? "border-blue-500 hover:bg-blue-100 checked:bg-blue-500"
-      : "border-red-500 hover:bg-red-100 checked:bg-red-500";
+      ? "border-red-500 hover:bg-red-100 checked:bg-red-500" 
+      : "border-blue-500 hover:bg-blue-100 checked:bg-blue-500";
   };
 
   return (
@@ -51,8 +51,8 @@ export default function StressStep({ answers, onAnswerChange }) {
               ${
                 answers[index] === val.toString()
                   ? val < 2
-                    ? "bg-blue-500 border-blue-500"
-                    : "bg-red-500 border-red-500"
+                    ? "bg-red-500 border-red-500" 
+                    : "bg-blue-500 border-blue-500"
                   : ""
               }
             `}
@@ -71,16 +71,16 @@ export default function StressStep({ answers, onAnswerChange }) {
 
               {/* Desktop Labels */}
               <span className="hidden md:block absolute left-0 text-sm text-gray-600">
-                Setuju
+                Tidak Setuju
               </span>
               <span className="hidden md:block absolute right-0 text-sm text-gray-600">
-                Tidak Setuju
+                Setuju
               </span>
 
               {/* Mobile Labels */}
               <div className="flex justify-between w-full md:hidden px-12 text-sm text-gray-600">
-                <span>Setuju</span>
                 <span>Tidak Setuju</span>
+                <span>Setuju</span>
               </div>
             </div>
 

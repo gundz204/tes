@@ -22,6 +22,7 @@ export function createProfilPresenter(viewCallbacks) {
       console.log("updateUser: Respons diterima", response);
     } catch (error) {
       console.error("updateUser: Terjadi kesalahan", error);
+      throw error;
     }
   };
 

@@ -24,8 +24,8 @@ export default function DepressionStep({ answers, onAnswerChange }) {
 
   const getColor = (value) => {
     return value < 2
-      ? "border-blue-500 hover:bg-blue-100"
-      : "border-red-500 hover:bg-red-100";
+      ? "border-red-500 hover:bg-red-100" 
+      : "border-blue-500 hover:bg-blue-100";
   };
 
   return (
@@ -48,8 +48,8 @@ export default function DepressionStep({ answers, onAnswerChange }) {
                   const isSelected = answers[index] === val.toString();
                   const selectedColor =
                     val < 2
-                      ? "bg-blue-500 border-blue-500 text-white"
-                      : "bg-red-500 border-red-500 text-white";
+                      ? "bg-red-500 border-red-500 text-white" 
+                      : "bg-blue-500 border-blue-500 text-white";
 
                   return (
                     <label
@@ -74,16 +74,16 @@ export default function DepressionStep({ answers, onAnswerChange }) {
 
               {/* Desktop Labels */}
               <span className="hidden md:block absolute left-0 text-sm text-gray-600">
-                Setuju
+                Tidak Setuju
               </span>
               <span className="hidden md:block absolute right-0 text-sm text-gray-600">
-                Tidak Setuju
+                Setuju
               </span>
 
               {/* Mobile Labels */}
               <div className="flex justify-between w-full md:hidden px-12 text-sm text-gray-600">
-                <span>Setuju</span>
                 <span>Tidak Setuju</span>
+                <span>Setuju</span>
               </div>
             </div>
 

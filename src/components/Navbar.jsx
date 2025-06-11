@@ -25,8 +25,21 @@ function Navbar() {
 
   const navigate = useNavigate();
 
-  const userDataString = localStorage.getItem("user");
-  const userData = userDataString ? JSON.parse(userDataString) : null;
+  const [userData, setUserData] = useState(null);
+
+  useEffect(() => {
+    const fetchUserData = () => {
+      const userDataString = localStorage.getItem("user");
+      const parsedData = userDataString ? JSON.parse(userDataString) : null;
+      setUserData(parsedData);
+    };
+
+    fetchUserData();
+
+    const interval = setInterval(fetchUserData, 1000);
+
+    return () => clearInterval(interval);
+  }, []);
 
   const userName = userData?.name || "User123";
   const userEmail = userData?.email || "user123@gmail.com";
@@ -89,11 +102,13 @@ function Navbar() {
         <div className="max-w-screen-2xl mx-auto px-4 sm:px-6 md:px-8 lg:px-12 py-2 flex items-center justify-between">
           {/* Logo kiri */}
           <div className="flex items-center md:flex-1 w-1/3 md:w-auto">
-            <img
-              src="/images/SEHATI.png"
-              alt="Logo SEHATI"
-              className="h-12 w-auto"
-            />
+            <Link to={'/'}>
+              <img
+                src="/images/SEHATI.png"
+                alt="Logo SEHATI"
+                className="h-12 w-auto"
+              />
+            </Link>
           </div>
 
           {/* Tulisan SEHATI (mobile) */}

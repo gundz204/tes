@@ -79,7 +79,7 @@ export default function ProfileView() {
         },
       });
     } catch (err) {
-      toast.error('Profil Gagal Diubah')
+      toast.error("Profil Gagal Diubah");
       console.error(err);
     } finally {
       setLoading(false);

@@ -100,11 +100,6 @@ const MasukView = ({ onClose, handleDaftar }) => {
                   onChange={(e) => setPassword(e.target.value)}
                   required
                 />
-                <div className="text-right text-[11px] mt-1">
-                  <a href="#" className="text-gray-600 hover:underline">
-                    Lupa kata sandi?
-                  </a>
-                </div>
               </div>
               <button
                 type="submit"
