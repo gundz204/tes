@@ -172,7 +172,7 @@ function Navbar() {
                       userGender === "male"
                         ? "https://avatar.iran.liara.run/public/47"
                         : userGender === "female"
-                          ? "https://avatar.iran.liara.run/public/48"
+                          ? "https://avatar.iran.liara.run/public/88"
                           : "https://avatar.iran.liara.run/public/47"
                     }
                     alt={`${userName}'s avatar`}
@@ -198,7 +198,7 @@ function Navbar() {
                           userGender === "male"
                             ? "https://avatar.iran.liara.run/public/47"
                             : userGender === "female"
-                              ? "https://avatar.iran.liara.run/public/48"
+                              ? "https://avatar.iran.liara.run/public/88"
                               : "https://avatar.iran.liara.run/public/47"
                         }
                         alt={`${userName}'s avatar`}
@@ -253,7 +253,7 @@ function Navbar() {
                             userGender === "male"
                               ? "https://avatar.iran.liara.run/public/47"
                               : userGender === "female"
-                                ? "https://avatar.iran.liara.run/public/48"
+                                ? "https://avatar.iran.liara.run/public/88"
                                 : "https://avatar.iran.liara.run/public/47"
                           }
                           alt={`${userName}'s avatar`}

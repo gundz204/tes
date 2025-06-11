@@ -110,7 +110,7 @@ export default function ProfileView() {
                     profile.gender === "male"
                       ? "https://avatar.iran.liara.run/public/47"
                       : profile.gender === "female"
-                        ? "https://avatar.iran.liara.run/public/48"
+                        ? "https://avatar.iran.liara.run/public/88"
                         : "https://avatar.iran.liara.run/public/47"
                   }
                   alt="Profile"

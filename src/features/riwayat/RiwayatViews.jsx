@@ -92,7 +92,7 @@ export default function RiwayatViews() {
                 user.gender === "male"
                   ? "https://avatar.iran.liara.run/public/47"
                   : user.gender === "female"
-                    ? "https://avatar.iran.liara.run/public/48"
+                    ? "https://avatar.iran.liara.run/public/88"
                     : "https://avatar.iran.liara.run/public/47"
               }
               alt="avatar"
