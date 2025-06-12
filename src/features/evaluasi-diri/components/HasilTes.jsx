@@ -18,19 +18,19 @@ export default function HasilTes({ depressionScore, anxietyScore, stressScore, b
       label: "Depresi",
       kategori: depressionScore?.kategori || "-",
       skor: depressionScore?.skor || 0,
-      maksimum: depressionScore?.maksimum || 42,
+      maksimum: 42,
     },
     {
       label: "Kecemasan",
       kategori: anxietyScore?.kategori || "-",
       skor: anxietyScore?.skor || 0,
-      maksimum: anxietyScore?.maksimum || 42,
+      maksimum: 42,
     },
     {
       label: "Stres",
       kategori: stressScore?.kategori || "-",
       skor: stressScore?.skor || 0,
-      maksimum: stressScore?.maksimum || 42,
+      maksimum: 42,
     },
   ];
 
