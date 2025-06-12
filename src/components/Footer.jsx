@@ -1,5 +1,6 @@
 import { FaWhatsapp, FaInstagram } from "react-icons/fa";
 import { LuMail } from "react-icons/lu";
+import { Link } from "react-router-dom"
 
 export default function Footer() {
   return (
@@ -20,19 +21,28 @@ export default function Footer() {
             <h3 className="font-semibold text-accent mb-2">Layanan</h3>
             <ul className="space-y-1 text-sm text-accent">
               <li>
-                <a href="/" className="hover:underline">
+                <Link
+                  to={'/'}
+                  className="hover:underline"
+                >
                   Beranda
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="/about" className="hover:underline">
+                <Link
+                  to={'/intro-evaluasi'}
+                  className="hover:underline"
+                >
                   Evaluasi Diri
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="/products" className="hover:underline">
+                <Link
+                  to={'/berita'}
+                  className="hover:underline"
+                >
                   Berita
-                </a>
+                </Link>
               </li>
             </ul>
           </div>
